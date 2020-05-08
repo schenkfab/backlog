@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace backlog.Entities
 {
@@ -6,5 +7,6 @@ namespace backlog.Entities
     {
         public String Name { get; set; }
         public String Url { get; set; }
+        public virtual List<Article> Articles { get; set; }
     }
 }

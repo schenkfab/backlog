@@ -4,8 +4,8 @@ namespace backlog.Entities
 {
     public class Subscription : BaseEntity
     {
-        public User User { get; set; }
-        public Feed Feed { get; set; }
-        public virtual List<Board> Boards { get; set; }
+        public virtual User User { get; set; }
+        public virtual Feed Feed { get; set; }
+        public virtual List<BoardSubscription> BoardSubscriptions { get; set; }
     }
 }

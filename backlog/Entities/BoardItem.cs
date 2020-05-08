@@ -7,8 +7,8 @@
             Backlog, ToDo, InProgress, Done, Rejected
         }
         public ItemStatus Status { get; set; }
-        public User User { get; set; }
-        public Board Board { get; set; }
-        public Article Article { get; set; }
+        public virtual User User { get; set; }
+        public virtual Board Board { get; set; }
+        public virtual Article Article { get; set; }
     }
 }
