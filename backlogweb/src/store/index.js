@@ -18,9 +18,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setUser (state, user) {
+      state.user = user
+      state.user.initialized = true
+    }
   },
   actions: {
-    addFeedAsync: async ({ dispatch, commit, state }, feed) => {
+    addFeedAsync: async ({ dispatch, state }, feed) => {
       const options = {
         headers: { Authorization: `Bearer ${state.user.token}` }
       }

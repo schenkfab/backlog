@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Rss from '../views/Rss.vue'
 import Feeds from '../views/Feeds.vue'
+import { authGuard } from '../auth/authGuard'
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,12 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/login',
+    name: 'Home',
+    component: Home,
+    beforeEnter: authGuard
   },
   {
     path: '/rss',
