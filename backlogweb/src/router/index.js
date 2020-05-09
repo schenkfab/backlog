@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Rss from '../views/Rss.vue'
+import Feeds from '../views/Feeds.vue'
 
 Vue.use(VueRouter)
 
@@ -9,6 +11,16 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/rss',
+    name: 'RSS',
+    component: Rss
+  },
+  {
+    path: '/feeds',
+    name: 'Feeds',
+    component: Feeds
   },
   {
     path: '/about',
