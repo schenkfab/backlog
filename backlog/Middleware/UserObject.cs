@@ -7,8 +7,8 @@ namespace backlog.Middleware
 {
     public class UserObject : IUserObject
     {
-        public long UserId { get; set; }
-        public string Token { get; set; }
-        public string Sub { get; set; }
+        public long UserId { get; set; } = -1;
+        public string Token { get; set; } = null;
+        public string Sub { get; set; } = null;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using backlog.Entities;
+using backlog.Middleware;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,20 @@ namespace backlog.Contexts
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
-        { }
+        private readonly IUserObject userObject;
+        public DatabaseContext(DbContextOptions<DatabaseContext> options, IUserObject userObject) : base(options)
+        {
+            this.userObject = userObject;
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Board>().HasQueryFilter(f => f.UserId == userObject.UserId);
+            builder.Entity<BoardItem>().HasQueryFilter(f => f.UserId == userObject.UserId);
+            builder.Entity<Subscription>().HasQueryFilter(f => f.UserId == userObject.UserId);
+            builder.Entity<User>().HasQueryFilter(f => f.Id == userObject.UserId);
+        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
