@@ -1,7 +1,7 @@
 <template>
   <nav class="flex items-center justify-between flex-wrap bg-purple-500 p-4">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
-      <span class="font-semibold text-xl tracking-tight">🔙 News Backlog</span>
+     <alc /><span class="font-semibold text-xl tracking-tight pl-4"> News Backlog</span>
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       <div class="text-sm lg:flex-grow">
@@ -16,7 +16,9 @@
 </template>
 
 <script>
+import { ArrowLeftCircleIcon } from 'vue-feather-icons'
 export default {
-  name: 'Nav'
+  name: 'Nav',
+  components: { alc: ArrowLeftCircleIcon }
 }
 </script>

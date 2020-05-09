@@ -28,6 +28,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "tailwindcss": "^1.4.6",
-    "vue-template-compiler": "^2.6.11"
+    "vue-feather-icons": "^5.0.0",
+    "vue-template-compiler": "^2.6.11",
+    "vuedraggable": "^2.23.2"
   }
 }
