@@ -16,11 +16,11 @@ namespace backlog.Repositories
         {
             if (isTracking)
             {
-                return await context.Users.Where(u => u.Sub == sub).FirstOrDefaultAsync();
+                return await context.Users.IgnoreQueryFilters().Where(u => u.Sub == sub).FirstOrDefaultAsync();
             }
             else
             {
-                return await context.Users.AsNoTracking().Where(u => u.Sub == sub).FirstOrDefaultAsync();
+                return await context.Users.IgnoreQueryFilters().AsNoTracking().Where(u => u.Sub == sub).FirstOrDefaultAsync();
             }
         }
 
