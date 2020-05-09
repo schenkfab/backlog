@@ -12,27 +12,27 @@ namespace backlog.Repositories
     {
         public UserRepository(DatabaseContext context) : base(context) { }
 
-        public User GetUserBySub(string sub, bool isTracking = false)
+        public async Task<User> GetUserBySub(string sub, bool isTracking = false)
         {
             if (isTracking)
             {
-                return context.Users.Where(u => u.Sub == sub).FirstOrDefault();
+                return await context.Users.Where(u => u.Sub == sub).FirstOrDefaultAsync();
             }
             else
             {
-                return context.Users.AsNoTracking().Where(u => u.Sub == sub).FirstOrDefault();
+                return await context.Users.AsNoTracking().Where(u => u.Sub == sub).FirstOrDefaultAsync();
             }
         }
 
-        public bool UserSubExists(string sub, bool isTracking = false)
+        public async Task<bool> UserSubExists(string sub, bool isTracking = false)
         {
             if (isTracking)
             {
-                return context.Users.Any(u => u.Sub == sub);
+                return await context.Users.AnyAsync(u => u.Sub == sub);
             }
             else
             {
-                return context.Users.AsNoTracking().Any(u => u.Sub == sub);
+                return await context.Users.AsNoTracking().AnyAsync(u => u.Sub == sub);
             }
         }
     }

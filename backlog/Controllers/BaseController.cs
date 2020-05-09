@@ -35,7 +35,7 @@ namespace backlog.Controllers
             return Ok(mapper.Map<List<TEntity>, List<TDtoToRead>>(records));
         }
         [HttpPost]
-        public async Task<IActionResult> Post(TDtoToCreate dto)
+        public virtual async Task<IActionResult> Post(TDtoToCreate dto)
         {
             var entity = mapper.Map<TEntity>(dto);
             await repository.Add(entity);
