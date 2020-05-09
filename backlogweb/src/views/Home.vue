@@ -1,59 +1,19 @@
 <template>
   <div class="text-center">
     <div class="bg-gray-200 flex justify-center p-2">
-      <div class="w-full max-w-md text-center p-2">
-        <p class="mb-2 text-gray-700-font-semibold font-sans tracking-wide">List 1</p>
-        <draggable
-          tag="ul"
-          class="w-full max-w-md"
-          ghost-class="moving-card"
-          :list="users"
-          :animation="200"
-          group="all"
-          style="min-height:400px"
-        >
-          <card
-            v-for="user in users"
-            :user="user"
-            :key="user.id"
-            @on-edit="onEdit"
-            @on-delete="onDelete"
-          ></card>
-        </draggable>
-      </div>
-      <div class="w-full max-w-md text-center p-2">
-        <p class="mb-2 text-gray-700-font-semibold font-sans tracking-wide">List 2</p>
-        <draggable
-          tag="ul"
-          class="w-full max-w-md"
-          ghost-class="moving-card"
-          :list="users2"
-          :animation="200"
-          style="min-height:400px"
-          group="all"
-        >
-          <card
-            v-for="user in users2"
-            :user="user"
-            :key="user.id"
-            @on-edit="onEdit"
-            @on-delete="onDelete"
-          ></card>
-        </draggable>
-      </div>
+        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" />
+        <column :users="users2" @onEdit="onEdit" @onDelete="onDelete" />
     </div>
   </div>
 </template>
 
 <script>
-import Card from '@/components/kanban/Card'
-import Draggable from 'vuedraggable'
+import Column from '@/components/kanban/Column'
 
 export default {
   name: 'Home',
   components: {
-    Card,
-    Draggable
+    Column
   },
   data () {
     return {
