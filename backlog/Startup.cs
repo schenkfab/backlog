@@ -1,5 +1,6 @@
 using AutoMapper;
 using backlog.Contexts;
+using backlog.Middleware;
 using backlog.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace backlog
             });
 
             services.AddScoped<UserRepository>();
+            services.AddScoped<IUserObject, UserObject>();
 
             services.AddControllers();
 
@@ -50,6 +52,8 @@ namespace backlog
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<UserMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
