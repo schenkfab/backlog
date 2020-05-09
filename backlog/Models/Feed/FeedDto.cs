@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backlog.Entities
+namespace backlog.Models
 {
-    public class Feed : BaseEntity
+    public class FeedDto : IDto
     {
+        public long Id { get; set; }
         public String Name { get; set; }
         public String Url { get; set; }
         public DateTime LastCrawl { get; set; }
-        public virtual List<Article> Articles { get; set; }
     }
 }

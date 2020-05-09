@@ -28,8 +28,11 @@ export default new Vuex.Store({
       const options = {
         headers: { Authorization: `Bearer ${state.user.token}` }
       }
-
-      await axios.post(_URLs.POST_FEED(), feed, options)
+      try {
+        await axios.post(_URLs.POST_FEED(), feed, options)
+      } catch (err) {
+        console.log(err)
+      }
 
       dispatch('getFeedsAsync')
     }
