@@ -16,7 +16,7 @@ namespace backlog.Controllers
         public override async Task<IActionResult> Post(UserForCreationDto dto)
         {
             // Check first, if there is already a user with the sub:
-            var entity = await repository.GetUserBySub(dto.Sub);
+            var entity = await repository.GetUserBySub(dto.Sub, true);
             if (entity == null)
             {
                 return await base.Post(dto);
