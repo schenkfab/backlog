@@ -7,6 +7,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    backlog: [],
+    toDo: [],
+    inProgress: [],
+    done: [],
+    rejected: [],
     feeds: [],
     token: {
       token: ''
@@ -34,6 +39,21 @@ export default new Vuex.Store({
     },
     setSubscribed (state, subscribed) {
       state.subscribed = subscribed
+    },
+    setBacklog (state, d) {
+      state.backlog = d
+    },
+    setToDo (state, d) {
+      state.toDo = d
+    },
+    setInProgress (state, d) {
+      state.inProgress = d
+    },
+    setRejected (state, d) {
+      state.rejected = d
+    },
+    setDone (state, d) {
+      state.done = d
     }
   },
   actions: {
@@ -70,6 +90,32 @@ export default new Vuex.Store({
         data[0].subscriptions.forEach(o => {
           subscribed.push(o.feed.id)
         })
+
+        const backlog = []
+        const toDo = []
+        const inProgress = []
+        const done = []
+        const rejected = []
+
+        data[0].boardItems.forEach(o => {
+          if (o.status === 1) {
+            backlog.push(o)
+          } else if (o.status === 2) {
+            toDo.push(o)
+          } else if (o.status === 3) {
+            inProgress.push(o)
+          } else if (o.status === 4) {
+            done.push(o)
+          } else if (o.status === 5) {
+            rejected.push(o)
+          }
+        })
+
+        commit('setBacklog', backlog)
+        commit('setToDo', toDo)
+        commit('setInProgress', inProgress)
+        commit('setDone', done)
+        commit('setRejected', rejected)
 
         commit('setSubscribed', subscribed)
       } catch (err) {
