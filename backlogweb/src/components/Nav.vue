@@ -27,9 +27,6 @@ export default {
   components: { alc: ArrowLeftCircleIcon },
   computed: {
     ...mapGetters(['getUser'])
-  },
-  mounted: function () {
-    console.log(this.getUser)
   }
 }
 </script>

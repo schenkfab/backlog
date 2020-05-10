@@ -13,18 +13,27 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getFeeds: state => {
-      return state.feeds
-    },
+    getFeeds: state => state.feeds,
     getUser: state => state.user
   },
   mutations: {
     setUser (state, user) {
       state.user = user
       state.user.initialized = true
+    },
+    setFeeds (state, feeds) {
+      state.feeds = feeds
     }
   },
   actions: {
+    getFeedsAsync: async ({ commit }) => {
+      try {
+        const { data } = await axios.get(_URLs.GET_FEED())
+        commit('setFeeds', data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     addFeedAsync: async ({ dispatch, state }, feed) => {
       const options = {
         headers: { Authorization: `Bearer ${state.user.token}` }
