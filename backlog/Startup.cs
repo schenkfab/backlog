@@ -44,6 +44,7 @@ namespace backlog
 
             services.AddScoped<UserRepository>();
             services.AddScoped<FeedRepository>();
+            services.AddScoped<SubscriptionRepository>();
 
             services.AddControllers();
 

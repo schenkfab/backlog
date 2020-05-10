@@ -34,12 +34,20 @@ namespace backlog.Controllers
             List<TEntity> records = await repository.GetAll();
             return Ok(mapper.Map<List<TEntity>, List<TDtoToRead>>(records));
         }
+
         [HttpPost]
         public virtual async Task<IActionResult> Post(TDtoToCreate dto)
         {
             var entity = mapper.Map<TEntity>(dto);
             await repository.Add(entity);
             return CreatedAtAction("Get", new { id = entity.Id }, mapper.Map<TDtoToRead>(entity));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await repository.Delete(id);
+            return NoContent();
         }
     }
 }

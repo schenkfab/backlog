@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace backlog.Models
 {
@@ -8,5 +9,6 @@ namespace backlog.Models
         public String Name { get; set; }
         public String Email { get; set; }
         public String Sub { get; set; }
+        public virtual List<SubscriptionDto> Subscriptions { get; set; }
     }
 }

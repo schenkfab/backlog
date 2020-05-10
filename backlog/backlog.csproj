@@ -20,5 +20,9 @@
 
   <ItemGroup>
     <Folder Include="Models\Feed\" />
+    <Folder Include="Models\Subscription\" />
+    <Folder Include="Models\Article\" />
+    <Folder Include="Models\Board\" />
+    <Folder Include="Models\BoardItem\" />
   </ItemGroup>
 </Project>
