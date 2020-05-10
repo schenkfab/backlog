@@ -11,7 +11,8 @@
         <router-link class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/feeds">Feeds</router-link>
       </div>
       <div>
-        <router-link class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/login">Login</router-link>
+        <router-link v-if="!this.getUser.initialized" class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/login">Login</router-link>
+        <router-link v-if="this.getUser.initialized" class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/">{{ this.getUser.name }}</router-link>
       </div>
     </div>
   </nav>
@@ -19,8 +20,16 @@
 
 <script>
 import { ArrowLeftCircleIcon } from 'vue-feather-icons'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Nav',
-  components: { alc: ArrowLeftCircleIcon }
+  components: { alc: ArrowLeftCircleIcon },
+  computed: {
+    ...mapGetters(['getUser'])
+  },
+  mounted: function () {
+    console.log(this.getUser)
+  }
 }
 </script>

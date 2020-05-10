@@ -15,7 +15,8 @@ export default new Vuex.Store({
   getters: {
     getFeeds: state => {
       return state.feeds
-    }
+    },
+    getUser: state => state.user
   },
   mutations: {
     setUser (state, user) {
