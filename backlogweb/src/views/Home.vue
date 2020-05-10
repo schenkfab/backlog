@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <div class="bg-gray-200 flex justify-center p-2">
-        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" />
+        <column :users="backlog" @onEdit="onEdit" @onDelete="onDelete" />
         <column :users="users2" @onEdit="onEdit" @onDelete="onDelete" />
     </div>
   </div>
@@ -56,6 +56,16 @@ export default {
     },
     onDelete (user) {
       alert(`Deleting ${user.name}`)
+    }
+  },
+  computed: {
+    backlog: {
+      get() {
+        return this.$store.state.backlog
+      },
+      set(val) {
+        this.$store.commit('setBacklog', val)
+      }
     }
   }
 }
