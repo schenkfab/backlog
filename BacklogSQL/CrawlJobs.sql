@@ -12,6 +12,7 @@ ALTER PROCEDURE dbo.usp_AddArticle
     @Description NVARCHAR(512),
     @Date DATETIME2(7),
     @FeedId BIGINT,
+    @Link NVARCHAR(512),
     @Author NVARCHAR(512) = NULL
 AS
 BEGIN
@@ -19,12 +20,10 @@ BEGIN
 
     IF NOT EXISTS (SELECT *
       FROM dbo.Articles
-     WHERE Name = @Name AND FeedId = @FeedId AND Date = @Date)
+     WHERE Name = @Name AND FeedId = @FeedId)
     BEGIN
-
-        INSERT INTO dbo.Articles (Name, Picture, Description, Date, FeedId, Author, CreatedDate, UpdatedDate)
-        VALUES (@Name, @Picture, @Description, @Date, @FeedId, @Author, GETDATE(), GETDATE())
-
+        INSERT INTO dbo.Articles (Name, Picture, Description, Date, FeedId, Author, CreatedDate, UpdatedDate, Link)
+        VALUES (@Name, @Picture, @Description, @Date, @FeedId, @Author, GETDATE(), GETDATE(), @Link)
     END
 END
 
