@@ -13,9 +13,14 @@ namespace backlog.Profiles
             CreateMap<UserDto, User>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<SubscriptionDto, Subscription>();
+            CreateMap<SubscriptionForCreationDto, Subscription>();
             CreateMap<Subscription, SubscriptionDto>();
             CreateMap<Feed, FeedDto>();
             CreateMap<FeedDto, Feed>();
+            CreateMap<BoardItemDto, BoardItem>();
+            CreateMap<BoardItem, BoardItemDto>();
+            CreateMap<Article, ArticleDto>();
+            CreateMap<ArticleDto, Article>();
         }
     }
 }

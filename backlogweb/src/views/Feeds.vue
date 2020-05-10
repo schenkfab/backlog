@@ -2,7 +2,7 @@
   <div class="w-full items-center justify-center">
     <add-feed></add-feed>
     <div>
-      <feeds-table @subscribe="subscribe" :feeds="this.getFeeds"></feeds-table>
+      <feeds-table @subscribe="subscribe" :feeds="this.getFeeds" :subscribed="this.getSubscribed"></feeds-table>
     </div>
 
   </div>
@@ -21,16 +21,17 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['getFeeds'])
+    ...mapGetters(['getFeeds', 'getSubscribed'])
   },
   methods: {
-    ...mapActions(['getFeedsAsync']),
-    subscribe: function (id) {
-      console.log(id)
+    ...mapActions(['getFeedsAsync', 'addSubscriptionAsync', 'getUserAsync']),
+    subscribe: async function (id) {
+      await this.addSubscriptionAsync(id)
     }
   },
-  mounted: function () {
-    this.getFeedsAsync()
+  mounted: async function () {
+    await this.getUserAsync()
+    await this.getFeedsAsync()
   }
 }
 </script>

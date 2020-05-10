@@ -20,7 +20,6 @@ namespace backlog.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Board>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<BoardItem>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<Subscription>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<User>().HasQueryFilter(f => f.Id == userObject.UserId);
@@ -46,7 +45,6 @@ namespace backlog.Contexts
         }
 
         public DbSet<Article> Articles { get; set; }
-        public DbSet<Board> Boards { get; set; }
         public DbSet<BoardItem> BoardItems { get; set; }
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }

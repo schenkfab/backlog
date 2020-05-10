@@ -36,7 +36,7 @@ export const authGuard = (to, from, next) => {
             }
           )
 
-          store.commit('setUser', {
+          store.commit('setToken', {
             token,
             ...data
           })

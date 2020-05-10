@@ -20,11 +20,14 @@
 
 <script>
 import { ArrowLeftCircleIcon } from 'vue-feather-icons'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Nav',
   components: { alc: ArrowLeftCircleIcon },
+  methods: {
+    ...mapActions(['getUserAsync'])
+  },
   computed: {
     ...mapGetters(['getUser'])
   }

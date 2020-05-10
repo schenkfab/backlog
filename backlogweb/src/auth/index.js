@@ -24,7 +24,8 @@ export const useAuth0 = ({
         // token: null,
         auth0Client: null,
         popupOpen: false,
-        error: null
+        error: null,
+        sso: false
       }
     },
     methods: {

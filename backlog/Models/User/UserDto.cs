@@ -10,5 +10,6 @@ namespace backlog.Models
         public String Email { get; set; }
         public String Sub { get; set; }
         public virtual List<SubscriptionDto> Subscriptions { get; set; }
+        public virtual List<BoardItemDto> BoardItems { get; set; }
     }
 }

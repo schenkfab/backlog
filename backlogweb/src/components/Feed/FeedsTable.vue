@@ -14,7 +14,7 @@
           <td class="border px-4 py-2">{{ feed.url }}</td>
           <td class="border px-4 py-2">{{ feed.lastCrawl }}</td>
           <td class="border px-4 py-2">
-            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" @click="subscribe(feed.id)">
+            <button v-if="!alreadySubscribed(feed.id)" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" @click="subscribe(feed.id)">
               Subscribe
             </button>
           </td>
@@ -29,11 +29,18 @@ export default {
     feeds: {
       type: Array,
       default: () => ([])
+    },
+    subscribed: {
+      type: Array,
+      default: () => ([])
     }
   },
   methods: {
     subscribe: function (id) {
       this.$emit('subscribe', id)
+    },
+    alreadySubscribed: function (id) {
+      return this.subscribed.includes(id)
     }
   }
 }
