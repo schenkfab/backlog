@@ -1,12 +1,14 @@
 <template>
   <div class="text-center">
-    <div class="bg-gray-200 flex justify-center p-2">
-        <column :users="backlog" @onEdit="onEdit" @onDelete="onDelete" />
-        <column :users="users2" @onEdit="onEdit" @onDelete="onDelete" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Backlog" color="gray" />
+        <column :users="users2" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="To Do" color="purple" />
+        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="In Progress" color="blue" />
+        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Done" color="green" />
+        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Rejected" color="red" />
     </div>
   </div>
 </template>
-
 <script>
 import Column from '@/components/kanban/Column'
 
@@ -56,14 +58,17 @@ export default {
     },
     onDelete (user) {
       alert(`Deleting ${user.name}`)
+    },
+    update (event, board) {
+      console.log(`Element with id ${event.added.element.id} was added to board ${board}`)
     }
   },
   computed: {
     backlog: {
-      get() {
+      get () {
         return this.$store.state.backlog
       },
-      set(val) {
+      set (val) {
         this.$store.commit('setBacklog', val)
       }
     }

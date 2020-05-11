@@ -1,6 +1,7 @@
 <template>
-  <div class="w-full max-w-md text-center p-2">
-    <p class="mb-2 text-gray-700-font-semibold font-sans tracking-wide">{{ title }}</p>
+<div class="w-full max-w-md text-center p-1">
+  <div :class="this.class">
+    <p class="mb-2 text-gray-700 font-semibold font-sans tracking-wide">{{ title }}</p>
     <draggable
       tag="ul"
       class="w-full max-w-md"
@@ -9,6 +10,7 @@
       :animation="200"
       group="all"
       style="min-height:400px"
+      @change="onUpdate"
     >
       <card
         v-for="user in users"
@@ -19,6 +21,7 @@
       ></card>
     </draggable>
   </div>
+  </div>
 </template>
 
 <script>
@@ -28,6 +31,11 @@ export default {
   components: {
     Card,
     Draggable
+  },
+  computed: {
+    class: function () {
+      return `w-full max-w-md text-center p-2 bg-${this.color}-200 rounded-lg`
+    }
   },
   props: {
     users: {
@@ -47,6 +55,10 @@ export default {
     },
     onEdit: {
       type: Function
+    },
+    color: {
+      type: String,
+      default: () => 'Blue'
     }
   },
   methods: {
@@ -55,6 +67,11 @@ export default {
     },
     triggerDelete (user) {
       this.$emit('onDelete', user)
+    },
+    onUpdate (event, x) {
+      if (event.added) {
+        this.$emit('onUpdate', event, this.title)
+      }
     }
   }
 }
