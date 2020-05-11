@@ -5,25 +5,19 @@
             <p class="ml-2 text-gray-700 font-semibold font-sans tracking-wide">{{user.name}}</p>
         </div>
         <div class="flex">
-            <button aria-label="Edit user"
-                    class="p-1 focus:outline-none focus:shadow-outline text-teal-500 hover:text-teal-600"
-                    @click="$emit('on-edit', user)">
-                <EditIcon/>
-            </button>
-            <button aria-label="Delete user"
-                    class="p-1 focus:outline-none focus:shadow-outline text-red-500 hover:text-red-600"
-                    @click="$emit('on-delete', user)">
-                <Trash2Icon/>
+            <button aria-label="Go to Link"
+                    class="p-1 focus:outline-none focus:shadow-outline text-purple-500 hover:text-purple-600"
+                    @click="$emit('onExternalLink', user)">
+                <ExternalLinkIcon/>
             </button>
         </div>
     </li>
 </template>
 <script>
-import { EditIcon, Trash2Icon } from 'vue-feather-icons'
+import { ExternalLinkIcon } from 'vue-feather-icons'
 export default {
   components: {
-    EditIcon,
-    Trash2Icon
+    ExternalLinkIcon
   },
   props: {
     user: {
