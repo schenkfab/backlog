@@ -9,15 +9,16 @@
       :list="users"
       :animation="200"
       group="all"
-      style="min-height:400px"
+      style="min-height:800px"
       @change="onUpdate"
     >
       <card
         v-for="user in users"
         :user="user"
         :key="user.id"
-        @on-edit="triggerEdit"
-        @on-delete="triggerDelete"
+        @onEdit="triggerEdit"
+        @onDelete="triggerDelete"
+        @onExternalLink="triggerExternalLink"
       ></card>
     </draggable>
   </div>
@@ -67,6 +68,9 @@ export default {
     },
     triggerDelete (user) {
       this.$emit('onDelete', user)
+    },
+    triggerExternalLink (user) {
+      console.log('triggerExternalLink', user)
     },
     onUpdate (event, x) {
       if (event.added) {
