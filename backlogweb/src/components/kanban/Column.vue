@@ -65,6 +65,9 @@ export default {
     onEdit: {
       type: Function
     },
+    onExternalEdit: {
+      type: Function
+    },
     color: {
       type: String,
       default: () => 'Blue'
@@ -78,7 +81,7 @@ export default {
       this.$emit('onDelete', entity)
     },
     triggerExternalLink (entity) {
-      console.log('triggerExternalLink', entity)
+      this.$emit('onExternalLink', entity)
     },
     onUpdate (event, x) {
       if (event.added) {
