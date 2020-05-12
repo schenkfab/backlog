@@ -13,5 +13,8 @@ module.exports = {
   },
   POST_NON_DUB_USER () {
     return 'https://localhost:44312/api/users'
+  },
+  PATCH_ITEM (itemId, statusId) {
+    return `https://localhost:44312/api/users/${itemId}/${statusId}`
   }
 }

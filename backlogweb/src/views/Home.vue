@@ -1,19 +1,19 @@
 <template>
   <div class="text-center">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-        <column :entities="backlog" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Backlog" color="gray"  />
-        <column :users="users2" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="To Do" color="purple" />
-        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="In Progress" color="blue" />
+        <column :entities="backlog" @onUpdate="update" title="Backlog" color="gray" @onExternalLink="triggerExternalLink" />
+        <column :entities="toDo" @onUpdate="update" title="To Do" color="purple" @onExternalLink="triggerExternalLink"/>
+        <column :entities="inProgress" @onUpdate="update" title="In Progress" color="blue" @onExternalLink="triggerExternalLink"/>
         <div>
-          <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Done" color="green" />
-          <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Rejected" color="red" />
+          <column :entities="done" @onUpdate="update" title="Done" color="green" @onExternalLink="triggerExternalLink"/>
+          <column :entities="rejected" @onUpdate="update" title="Rejected" color="red" @onExternalLink="triggerExternalLink"/>
         </div>
     </div>
   </div>
 </template>
 <script>
 import Column from '@/components/kanban/Column'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Home',
@@ -22,50 +22,36 @@ export default {
   },
   data () {
     return {
-      users2: [],
-      users: [
-        {
-          id: 1,
-          name: 'Adrian Schubert',
-          avatar:
-            'https://pickaface.net/gallery/avatar/unr_sample_161118_2054_ynlrg.png'
-        },
-        {
-          id: 2,
-          name: 'Violet Gates',
-          avatar: 'https://pickaface.net/gallery/avatar/freud51c8b3f65e7dc.png'
-        },
-        {
-          id: 3,
-          name: 'Steve Jobs',
-          avatar: 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png'
-        },
-        {
-          id: 4,
-          name: 'Yassine Smith',
-          avatar:
-            'https://pickaface.net/gallery/avatar/unr_yassine_191124_2012_3gngr.png'
-        },
-        {
-          id: 5,
-          name: 'Senior Saez',
-          avatar:
-            'https://pickaface.net/gallery/avatar/elmedinilla541c03412955c.png'
-        }
-      ]
+      highlighted: {},
+      hasHighlight: false
     }
   },
   methods: {
-    onEdit (user) {
-      alert(`Editing ${user.name}`)
-    },
-    onDelete (user) {
-      alert(`Deleting ${user.name}`)
+    triggerExternalLink (entity) {
+      var win = window.open(entity.link, '_blank')
+      win.focus()
     },
     update (event, board) {
-      console.log(`Element with id ${event.added.element.id} was added to board ${board}`)
+      let status = 0
+      if (board === 'Backlog') {
+        status = 0
+      } else if (board === 'To Do') {
+        status = 1
+      } else if (board === 'In Progress') {
+        status = 2
+      } else if (board === 'Done') {
+        status = 3
+      } else if (board === 'Rejected') {
+        status = 4
+      }
+
+      const el = event.added.element
+      el.status = status
+
+      this.setStatusAsync({ itemId: el.id, statusId: el.status })
     },
-    ...mapActions(['getUserAsync'])
+    ...mapActions(['getUserAsync', 'setStatusAsync']),
+    ...mapMutations(['setToDo'])
   },
   computed: {
     backlog: {
@@ -75,7 +61,41 @@ export default {
       set (val) {
         this.$store.commit('setBacklog', val)
       }
+    },
+    toDo: {
+      get () {
+        return this.$store.state.toDo
+      },
+      set (val) {
+        console.log(val)
+        this.setToDo(val)
+      }
+    },
+    inProgress: {
+      get () {
+        return this.$store.state.inProgress
+      },
+      set (val) {
+        this.$store.commit('setInProgress', val)
+      }
+    },
+    done: {
+      get () {
+        return this.$store.state.done
+      },
+      set (val) {
+        this.$store.commit('setDone', val)
+      }
+    },
+    rejected: {
+      get () {
+        return this.$store.state.rejected
+      },
+      set (val) {
+        this.$store.commit('setRejected', val)
+      }
     }
+
   },
   mounted: async function () {
     await this.getUserAsync()

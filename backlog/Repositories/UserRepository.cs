@@ -35,5 +35,36 @@ namespace backlog.Repositories
                 return await context.Users.AsNoTracking().AnyAsync(u => u.Sub == sub);
             }
         }
+
+        public async Task<BoardItem> UpdateBoardItemStatus(long itemId, int statusId)
+        {
+            BoardItem.ItemStatus status = BoardItem.ItemStatus.Backlog;
+            if (statusId == 0)
+            {
+                status = BoardItem.ItemStatus.Backlog;
+            }
+            else if (statusId == 1)
+            {
+                status = BoardItem.ItemStatus.ToDo;
+            }
+            else if (statusId == 2)
+            {
+                status = BoardItem.ItemStatus.InProgress;
+            }
+            else if (statusId == 3)
+            {
+                status = BoardItem.ItemStatus.Done;
+            }
+            else if (statusId == 4)
+            {
+                status = BoardItem.ItemStatus.Rejected;
+            }
+
+            var entity = context.BoardItems.FirstOrDefault(o => o.Id == itemId);
+            entity.Status = status;
+            context.Entry(entity).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return entity;
+        }
     }
 }

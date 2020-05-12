@@ -57,6 +57,16 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setStatusAsync: async ({ commit, state }, { itemId, statusId }) => {
+      const options = {
+        headers: { Authorization: `Bearer ${state.token.token}` }
+      }
+      try {
+        await axios.patch(_URLs.PATCH_ITEM(itemId, statusId), {}, options)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     getFeedsAsync: async ({ commit }) => {
       try {
         const { data } = await axios.get(_URLs.GET_FEED())
@@ -98,15 +108,15 @@ export default new Vuex.Store({
         const rejected = []
 
         data[0].boardItems.forEach(o => {
-          if (o.status === 1) {
+          if (o.status === 0) {
             backlog.push(o)
-          } else if (o.status === 2) {
+          } else if (o.status === 1) {
             toDo.push(o)
-          } else if (o.status === 3) {
+          } else if (o.status === 2) {
             inProgress.push(o)
-          } else if (o.status === 4) {
+          } else if (o.status === 3) {
             done.push(o)
-          } else if (o.status === 5) {
+          } else if (o.status === 4) {
             rejected.push(o)
           }
         })

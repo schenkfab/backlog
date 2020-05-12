@@ -25,5 +25,12 @@ namespace backlog.Controllers
                 return Ok(mapper.Map<UserDto>(entity));
             }
         }
+
+        [HttpPatch("{itemId}/{statusId}")]
+        public async Task<IActionResult> ChangeStatus(long itemId, int statusId)
+        {
+            var entity = await repository.UpdateBoardItemStatus(itemId, statusId);
+            return Ok(mapper.Map<BoardItemDto>(entity));
+        }
     }
 }
