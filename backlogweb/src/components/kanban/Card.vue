@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
           <div class="flex items-center">
             <img class="w-10 h-10 rounded-full" :src="data.picture" :alt="data.name">
-            <p class="ml-2 text-gray-700 font-sans tracking-wide">{{data.name}}</p>
+            <p class="ml-2 text-gray-700 font-sans tracking-wide text-sm">{{data.name}}</p>
           </div>
           <div class="flex">
             <button aria-label="Go to Link"
