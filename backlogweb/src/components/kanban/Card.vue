@@ -1,16 +1,19 @@
 <template>
-    <li class="p-4 mb-3 flex justify-between items-center bg-white shadow rounded-lg cursor-move" style="min-width: 300px;">
-        <div class="flex items-center">
-            <img class="w-10 h-10 rounded-full" :src="user.avatar" :alt="user.name">
-            <p class="ml-2 text-gray-700 font-semibold font-sans tracking-wide">{{user.name}}</p>
-        </div>
-        <div class="flex">
+    <li class="p-2 mb-3 bg-white shadow rounded-lg cursor-move" style="min-width: 300px;">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <img class="w-10 h-10 rounded-full" :src="data.picture" :alt="data.name">
+            <p class="ml-2 text-gray-700 font-sans tracking-wide">{{data.name}}</p>
+          </div>
+          <div class="flex">
             <button aria-label="Go to Link"
                     class="p-1 focus:outline-none focus:shadow-outline text-purple-500 hover:text-purple-600"
-                    @click="$emit('onExternalLink', user)">
+                    @click="$emit('onExternalLink', data)">
                 <ExternalLinkIcon/>
             </button>
+          </div>
         </div>
+        <p class="text-gray-400 font-sans text-xs">{{(new Date(data.date)).toLocaleDateString()}}</p>
     </li>
 </template>
 <script>
@@ -20,7 +23,7 @@ export default {
     ExternalLinkIcon
   },
   props: {
-    user: {
+    data: {
       type: Object,
       default: () => ({})
     }

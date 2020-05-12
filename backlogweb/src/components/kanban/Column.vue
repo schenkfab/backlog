@@ -6,16 +6,16 @@
       tag="ul"
       class="w-full max-w-md"
       ghost-class="moving-card"
-      :list="users"
+      :list="entities"
       :animation="200"
+      :style="this.style"
       group="all"
-      style="min-height:800px"
       @change="onUpdate"
     >
       <card
-        v-for="user in users"
-        :user="user"
-        :key="user.id"
+        v-for="entity in entities"
+        :data="entity.article"
+        :key="entity.article.id"
         @onEdit="triggerEdit"
         @onDelete="triggerDelete"
         @onExternalLink="triggerExternalLink"
@@ -36,10 +36,18 @@ export default {
   computed: {
     class: function () {
       return `w-full max-w-md text-center p-2 bg-${this.color}-200 rounded-lg`
+    },
+    style: function () {
+      if (this.title === 'Done' || this.title === 'Rejected') {
+        return 'min-height:372px'
+      } else {
+        return 'min-height:800px'
+      }
     }
+
   },
   props: {
-    users: {
+    entities: {
       type: Array,
       default: () => []
     },
@@ -63,14 +71,14 @@ export default {
     }
   },
   methods: {
-    triggerEdit (user) {
-      this.$emit('onEdit', user)
+    triggerEdit (entity) {
+      this.$emit('onEdit', entity)
     },
-    triggerDelete (user) {
-      this.$emit('onDelete', user)
+    triggerDelete (entity) {
+      this.$emit('onDelete', entity)
     },
-    triggerExternalLink (user) {
-      console.log('triggerExternalLink', user)
+    triggerExternalLink (entity) {
+      console.log('triggerExternalLink', entity)
     },
     onUpdate (event, x) {
       if (event.added) {

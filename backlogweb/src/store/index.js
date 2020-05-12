@@ -111,7 +111,18 @@ export default new Vuex.Store({
           }
         })
 
-        commit('setBacklog', backlog)
+        const compare = function (a, b) {
+          if (a.article.date < b.article.date) {
+            return 1
+          }
+          if (a.article.date > b.article.date) {
+            return -1
+          }
+          return 0
+        }
+        const backlogOrdered = backlog.sort(compare)
+
+        commit('setBacklog', backlogOrdered)
         commit('setToDo', toDo)
         commit('setInProgress', inProgress)
         commit('setDone', done)

@@ -1,16 +1,19 @@
 <template>
   <div class="text-center">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
-        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Backlog" color="gray" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+        <column :entities="backlog" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Backlog" color="gray"  />
         <column :users="users2" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="To Do" color="purple" />
         <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="In Progress" color="blue" />
-        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Done" color="green" />
-        <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Rejected" color="red" />
+        <div>
+          <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Done" color="green" />
+          <column :users="users" @onEdit="onEdit" @onDelete="onDelete" @onUpdate="update" title="Rejected" color="red" />
+        </div>
     </div>
   </div>
 </template>
 <script>
 import Column from '@/components/kanban/Column'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -61,7 +64,8 @@ export default {
     },
     update (event, board) {
       console.log(`Element with id ${event.added.element.id} was added to board ${board}`)
-    }
+    },
+    ...mapActions(['getUserAsync'])
   },
   computed: {
     backlog: {
@@ -72,6 +76,9 @@ export default {
         this.$store.commit('setBacklog', val)
       }
     }
+  },
+  mounted: async function () {
+    await this.getUserAsync()
   }
 }
 </script>
