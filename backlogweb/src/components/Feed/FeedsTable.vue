@@ -10,12 +10,15 @@
       </thead>
       <tbody>
         <tr v-for="feed in this.feeds" :key="feed.id">
-          <td class="border px-4 py-2 text-center">{{ feed.name }}</td>
-          <td class="border px-4 py-2">{{ feed.url }}</td>
-          <td class="border px-4 py-2">{{ feed.lastCrawl }}</td>
+          <td class="border px-4 py-2">{{ feed.name }}</td>
+          <td class="border px-4 py-2"><a :href="feed.url" target="_blank">{{ feed.url }}</a></td>
+          <td class="border px-4 py-2">{{ new Date(feed.lastCrawl).toLocaleString() }}</td>
           <td class="border px-4 py-2">
             <button v-if="!alreadySubscribed(feed.id)" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" @click="subscribe(feed.id)">
               Subscribe
+            </button>
+            <button v-if="alreadySubscribed(feed.id)" class="bg-white hover:bg-gray-100 text-red-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" @click="subscribe(feed.id)">
+              Unsubscribe
             </button>
           </td>
         </tr>

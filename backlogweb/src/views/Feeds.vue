@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full items-center justify-center">
+  <div class="container mx-auto items-center justify-center">
     <add-feed></add-feed>
     <div>
       <feeds-table @subscribe="subscribe" :feeds="this.getFeeds" :subscribed="this.getSubscribed"></feeds-table>

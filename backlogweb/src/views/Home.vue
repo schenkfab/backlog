@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4" v-if="this.getUser.initialized">
         <column :entities="backlog" @onUpdate="update" title="Backlog" color="gray" @onExternalLink="triggerExternalLink" />
         <column :entities="toDo" @onUpdate="update" title="To Do" color="purple" @onExternalLink="triggerExternalLink"/>
         <column :entities="inProgress" @onUpdate="update" title="In Progress" color="blue" @onExternalLink="triggerExternalLink"/>
@@ -13,7 +13,7 @@
 </template>
 <script>
 import Column from '@/components/kanban/Column'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
@@ -54,6 +54,7 @@ export default {
     ...mapMutations(['setToDo'])
   },
   computed: {
+    ...mapGetters(['getUser']),
     backlog: {
       get () {
         return this.$store.state.backlog
