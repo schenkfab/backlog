@@ -35,11 +35,17 @@ GO
 
 GO
 
-CREATE PROCEDURE dbo.usp_FinishCrawl
+CREATE PROCEDURE [dbo].[usp_FinishCrawl]
     @FeedId BIGINT
 AS
 BEGIN
     UPDATE dbo.Feeds
        SET LastCrawl = GETDATE()
      WHERE Id = @FeedId
+
+    INSERT INTO dbo.BoardItems (CreatedDate, UpdatedDate, Status, UserId, ArticleId, SubscriptionId)
+    SELECT GETDATE(), GETDATE(), 0, s.UserId, a.Id, s.Id FROM [dbo].[Subscriptions] s
+    INNER JOIN dbo.Articles a ON a.FeedId = s.FeedId
+    LEFT JOIN dbo.BoardItems bi ON bi.UserId = s.UserId AND bi.ArticleId = a.Id AND bi.SubscriptionId = s.id
+    WHERE bi.Id IS NULL
 END
