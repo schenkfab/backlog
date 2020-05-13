@@ -35,11 +35,11 @@ export default {
   },
   computed: {
     class: function () {
-      return `w-full max-w-md text-center p-2 bg-${this.color}-200 rounded-lg`
+      return `w-full max-w-md text-center p-2 mb-4 bg-${this.color}-300 rounded-lg`
     },
     style: function () {
       if (this.title === 'Done' || this.title === 'Rejected') {
-        return 'min-height:372px'
+        return 'min-height:364px'
       } else {
         return 'min-height:800px'
       }
