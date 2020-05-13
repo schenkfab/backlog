@@ -7,7 +7,6 @@
       <div class="text-sm lg:flex-grow">
         <router-link class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/">Home</router-link>
         <router-link class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/about">About</router-link>
-        <router-link class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/rss">rss</router-link>
         <router-link class="block mt-4 lg:inline-block lg:mt-0 text-white text-lg hover:text-white mr-4" to="/feeds">Feeds</router-link>
       </div>
       <div>
