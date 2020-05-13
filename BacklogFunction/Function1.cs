@@ -12,7 +12,7 @@ namespace BacklogFunction
     public static class Function1
     {
         [FunctionName("Function1")]
-        public static async void Run([TimerTrigger("0 */60 * * * *")]TimerInfo myTimer, ILogger log)
+        public static async void Run([TimerTrigger("0 */15 * * * *")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function started executed at: {DateTime.Now}");
 
@@ -94,7 +94,7 @@ namespace BacklogFunction
             {
                 string subject = item.Title.Text;
                 string summary = item.Summary.Text;
-                string image = feed.ImageUrl.ToString();
+                string image = feed.ImageUrl == null ? null : feed.ImageUrl.ToString();
                 string link = item.Links[0].Uri.ToString();
                 string created = item.PublishDate.UtcDateTime.ToString("yyyy-MM-dd HH':'mm':'ss");
 
