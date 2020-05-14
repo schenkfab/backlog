@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loading: false,
     backlog: [],
     toDo: [],
     inProgress: [],
@@ -21,11 +22,15 @@ export default new Vuex.Store({
     subscribed: []
   },
   getters: {
+    getLoading: state => state.loading,
     getFeeds: state => state.feeds,
     getUser: state => state.user,
     getSubscribed: state => state.subscribed
   },
   mutations: {
+    setLoading (state, loading) {
+      state.loading = loading
+    },
     setUser (state, user) {
       state.user = user
       state.user.initialized = true

@@ -15,12 +15,14 @@ export const authGuard = (to, from, next) => {
         console.log(store.state.user)
         return next()
       } else {
-        console.log('user not initialized')
+        store.commit('setLoading', true)
+        console.log('loading start')
 
         // make sure the user is already registered inside of the app itself with its this.$auth.user.sub
         const token = await authService.getTokenSilently()
 
         console.log('token', authService.user)
+
         try {
           const { data } = await axios.post(
             POST_NON_DUB_USER(),
@@ -43,6 +45,7 @@ export const authGuard = (to, from, next) => {
         } catch (error) {
           console.log(Object.keys(error), error.message)
         }
+        store.commit('setLoading', false)
 
         return next()
       }

@@ -51,7 +51,7 @@ export default {
       this.setStatusAsync({ itemId: el.id, statusId: el.status })
     },
     ...mapActions(['getUserAsync', 'setStatusAsync']),
-    ...mapMutations(['setToDo'])
+    ...mapMutations(['setToDo', 'setLoading'])
   },
   computed: {
     ...mapGetters(['getUser']),
@@ -99,7 +99,9 @@ export default {
 
   },
   mounted: async function () {
+    this.setLoading(true)
     await this.getUserAsync()
+    this.setLoading(false)
   }
 }
 </script>

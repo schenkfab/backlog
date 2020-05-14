@@ -11,7 +11,7 @@
 <script>
 import AddFeed from '@/components/Feed/AddFeed'
 import FeedsTable from '@/components/Feed/FeedsTable'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -24,14 +24,17 @@ export default {
     ...mapGetters(['getFeeds', 'getSubscribed'])
   },
   methods: {
+    ...mapMutations(['setLoading']),
     ...mapActions(['getFeedsAsync', 'addSubscriptionAsync', 'getUserAsync']),
     subscribe: async function (id) {
       await this.addSubscriptionAsync(id)
     }
   },
   mounted: async function () {
+    this.setLoading(true)
     await this.getUserAsync()
     await this.getFeedsAsync()
+    this.setLoading(false)
   }
 }
 </script>
