@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.ServiceModel.Syndication;
+using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -18,66 +19,21 @@ namespace BacklogFunction
 
             // Get the connection string from app settings and use it to create a connection.
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
-            using (SqlConnection conn = new SqlConnection(str))
+
+            // Get all feeds that need to be crawled:
+            List<Feed> feeds = await GetFeedsToCrawl(str, log);
+
+            foreach (Feed feed in feeds)
             {
-                conn.Open();
-                var text = "SELECT Id, Url FROM dbo.CrawlJobs";
-                Console.WriteLine("HI");
+                log.LogInformation($"{feed.Url} feed being crawled");
 
-                using (SqlCommand cmd = new SqlCommand(text, conn))
-                {
-                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
-                    while (rdr.Read())
-                    {
-                        log.LogInformation($"{rdr["Url"]} feed being crawled");
+                List<Article> articles = GetArticles(feed.Url);
 
-                        List<Article> articles = GetArticles(rdr["Url"].ToString());
+                await SubmitArticles(articles, feed.Id, str, log);
 
-                        foreach (Article a in articles)
-                        {
-                            using (SqlConnection conn2 = new SqlConnection(str))
-                            {
-                                conn2.Open();
-                                var storedProcedure = "dbo.usp_AddArticle";
-
-                                using (SqlCommand sp = new SqlCommand(storedProcedure, conn2))
-                                {
-                                    // 2. set the command object so it knows to execute a stored procedure
-                                    sp.CommandType = CommandType.StoredProcedure;
-
-                                    // 3. add parameter to command, which will be passed to the stored procedure
-                                    sp.Parameters.Add(new SqlParameter("@Name", a.Name));
-                                    sp.Parameters.Add(new SqlParameter("@Picture", a.Image));
-                                    sp.Parameters.Add(new SqlParameter("@Description", a.Description));
-                                    sp.Parameters.Add(new SqlParameter("@Date", a.Created));
-                                    sp.Parameters.Add(new SqlParameter("@FeedId", Int32.Parse(rdr["Id"].ToString())));
-                                    sp.Parameters.Add(new SqlParameter("@Link", a.Link));
-
-                                    // execute the command
-                                    var art = await sp.ExecuteNonQueryAsync();
-                                }
-                            }
-                        }
-
-                        // Set the last crawled date of rdr["Id"] to the current date:
-                        using (SqlConnection conn3 = new SqlConnection(str))
-                        {
-                            conn3.Open();
-                            string storedProcedure = "dbo.usp_FinishCrawl";
-
-                            using (SqlCommand sp = new SqlCommand(storedProcedure, conn3))
-                            {
-                                sp.CommandType = CommandType.StoredProcedure;
-                                sp.Parameters.Add(new SqlParameter("@FeedId", Int32.Parse(rdr["Id"].ToString())));
-
-                                await sp.ExecuteNonQueryAsync();
-                            }
-                        }
-
-                        log.LogInformation($"{rdr["Url"]} feed being crawled");                   
-                    }
-                }
+                await FinishCrawl(feed.Id, str, log);
             }
+
 
             log.LogInformation($"C# Timer trigger function finished executed at: {DateTime.Now}");
 
@@ -112,6 +68,83 @@ namespace BacklogFunction
             public string Description { get; set; }
             public string Created { get; set; }
             public string Link { get; set; }
+        }
+
+        public class Feed
+        {
+            public string Url { get; set; }
+            public int Id { get; set; }
+        }
+
+        public static async Task<List<Feed>> GetFeedsToCrawl(string connectionString, ILogger log)
+        {
+            var sqlCommandText = "SELECT Id, Url FROM dbo.CrawlJobs";
+            List<Feed> feeds = new List<Feed>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sqlCommandText, conn))
+                {
+                    SqlDataReader rdr = await cmd.ExecuteReaderAsync();
+                    while (rdr.Read())
+                    {
+                        feeds.Add(new Feed() { Url = rdr["Url"].ToString(), Id = Int32.Parse(rdr["Id"].ToString()) });
+                    }
+                }
+            }
+
+            return feeds;
+        }
+
+        public static async Task<bool> SubmitArticles(List<Article> articles, int feedId, string connectionString, ILogger log)
+        {
+            foreach(Article article in articles)
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    var storedProcedure = "dbo.usp_AddArticle";
+
+                    using (SqlCommand sp = new SqlCommand(storedProcedure, conn))
+                    {
+                        // 2. set the command object so it knows to execute a stored procedure
+                        sp.CommandType = CommandType.StoredProcedure;
+
+                        // 3. add parameter to command, which will be passed to the stored procedure
+                        sp.Parameters.Add(new SqlParameter("@Name", article.Name));
+                        sp.Parameters.Add(new SqlParameter("@Picture", article.Image));
+                        sp.Parameters.Add(new SqlParameter("@Description", article.Description));
+                        sp.Parameters.Add(new SqlParameter("@Date", article.Created));
+                        sp.Parameters.Add(new SqlParameter("@FeedId", feedId));
+                        sp.Parameters.Add(new SqlParameter("@Link", article.Link));
+
+                        // execute the command
+                        var art = await sp.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            return true;
+        }
+
+        public static async Task<bool> FinishCrawl(int feedId, string connectionString, ILogger log)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string storedProcedure = "dbo.usp_FinishCrawl";
+
+                using (SqlCommand sp = new SqlCommand(storedProcedure, conn))
+                {
+                    sp.CommandType = CommandType.StoredProcedure;
+                    sp.Parameters.Add(new SqlParameter("@FeedId", feedId));
+
+                    await sp.ExecuteNonQueryAsync();
+                }
+            }
+
+            return true;
         }
     }
 }
