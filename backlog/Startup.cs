@@ -2,6 +2,7 @@ using AutoMapper;
 using backlog.Contexts;
 using backlog.Middleware;
 using backlog.Repositories;
+using backlog.ServiceCollection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -38,14 +39,12 @@ namespace backlog
 
             services.AddDbContext<DatabaseContext>(opt =>
             {
+                //TODO: Include anstatt Lazy Loading
                 opt.UseLazyLoadingProxies();
                 opt.UseSqlServer(Configuration["connectionString"]);
             });
 
-            services.AddScoped<UserRepository>();
-            services.AddScoped<FeedRepository>();
-            services.AddScoped<SubscriptionRepository>();
-
+            services.AddRepositoryService();
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

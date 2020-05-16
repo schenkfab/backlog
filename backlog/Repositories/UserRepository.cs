@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace backlog.Repositories
 {
-    public class UserRepository : EfCoreRepository<User, DatabaseContext>
+    public class UserRepository : EfCoreRepository<User, DatabaseContext>, IUserRepository
     {
         public UserRepository(DatabaseContext context) : base(context) { }
 
@@ -39,7 +39,7 @@ namespace backlog.Repositories
         public async Task<BoardItem> UpdateBoardItemStatus(long itemId, int statusId)
         {
             var entity = context.BoardItems.FirstOrDefault(o => o.Id == itemId);
-            entity.Status = (BoardItem.ItemStatus) statusId;
+            entity.Status = (BoardItem.ItemStatus)statusId;
             context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return entity;

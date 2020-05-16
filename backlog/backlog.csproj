@@ -23,5 +23,6 @@
     <Folder Include="Models\Subscription\" />
     <Folder Include="Models\Article\" />
     <Folder Include="Models\BoardItem\" />
+    <Folder Include="ServiceCollection\" />
   </ItemGroup>
 </Project>
