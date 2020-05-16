@@ -3,7 +3,7 @@ using backlog.Entities;
 
 namespace backlog.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
         Task<User> GetUserBySub(string sub, bool isTracking = false);
         Task<BoardItem> UpdateBoardItemStatus(long itemId, int statusId);

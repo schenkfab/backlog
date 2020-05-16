@@ -34,6 +34,7 @@ namespace backlog
                     builder.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod();
                 });
             });
+            services.AddRepositoryService();
 
             services.AddScoped<IUserObject, UserObject>();
 
@@ -44,7 +45,6 @@ namespace backlog
                 opt.UseSqlServer(Configuration["connectionString"]);
             });
 
-            services.AddRepositoryService();
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

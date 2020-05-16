@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace backlog.Repositories
 {
-    public class SubscriptionRepository : EfCoreRepository<Subscription, DatabaseContext>
+    public class SubscriptionRepository : EfCoreRepository<Subscription, DatabaseContext>, ISubscriptionRepository
     {
         public SubscriptionRepository(DatabaseContext context) : base(context) { }
     }

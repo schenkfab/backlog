@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace backlog.Controllers
 {
-    public class UsersController : BaseController<UserDto, UserForCreationDto, UserForUpdateDto, User, UserRepository>
+    public class UsersController : BaseController<UserDto, UserForCreationDto, UserForUpdateDto, User, IUserRepository>
     {
-        public UsersController(UserRepository userRepository, IMapper mapper) : base(userRepository, mapper)
+        public UsersController(IUserRepository userRepository, IMapper mapper) : base(userRepository, mapper)
         {
         }
 

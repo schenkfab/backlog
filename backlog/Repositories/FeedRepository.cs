@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace backlog.Repositories
 {
-    public class FeedRepository : EfCoreRepository<Feed, DatabaseContext>
+    public class FeedRepository : EfCoreRepository<Feed, DatabaseContext>, IFeedRepository
     {
         public FeedRepository(DatabaseContext context) : base(context) { }
     }

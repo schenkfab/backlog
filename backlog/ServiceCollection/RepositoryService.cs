@@ -8,8 +8,8 @@ namespace backlog.ServiceCollection
         public static void AddRepositoryService(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<FeedRepository>();
-            services.AddScoped<SubscriptionRepository>();
+            services.AddScoped<IFeedRepository, FeedRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
         }
     }
 }

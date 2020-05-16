@@ -28,7 +28,7 @@ namespace backlog.Middleware
             return sub;
         }
 
-        public async Task InvokeAsync(HttpContext context, IUserObject userObject, UserRepository repository)
+        public async Task InvokeAsync(HttpContext context, IUserObject userObject, IUserRepository repository)
         {
             if (context.Request.Headers.ContainsKey("Authorization"))
             {

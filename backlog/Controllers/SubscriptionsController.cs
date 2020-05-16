@@ -5,9 +5,9 @@ using backlog.Repositories;
 
 namespace backlog.Controllers
 {
-    public class SubscriptionsController : BaseController<SubscriptionDto, SubscriptionForCreationDto, SubscriptionForUpdateDto, Subscription, SubscriptionRepository>
+    public class SubscriptionsController : BaseController<SubscriptionDto, SubscriptionForCreationDto, SubscriptionForUpdateDto, Subscription, ISubscriptionRepository>
     {
-        public SubscriptionsController(SubscriptionRepository subscriptionRepository, IMapper mapper) : base(subscriptionRepository, mapper)
+        public SubscriptionsController(ISubscriptionRepository subscriptionRepository, IMapper mapper) : base(subscriptionRepository, mapper)
         {
         }
     }

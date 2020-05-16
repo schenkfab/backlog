@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace backlog.Controllers
 {
-    public class FeedsController : BaseController<FeedDto, FeedForCreationDto, FeedForUpdateDto, Feed, FeedRepository>
+    public class FeedsController : BaseController<FeedDto, FeedForCreationDto, FeedForUpdateDto, Feed, IFeedRepository>
     {
-        public FeedsController(FeedRepository feedRepository, IMapper mapper) : base(feedRepository, mapper)
+        public FeedsController(IFeedRepository feedRepository, IMapper mapper) : base(feedRepository, mapper)
         {
         }
     }
