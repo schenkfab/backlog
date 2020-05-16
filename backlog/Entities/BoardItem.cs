@@ -4,7 +4,11 @@
     {
         public enum ItemStatus
         {
-            Backlog = 0, ToDo = 1, InProgress = 2, Done = 3, Rejected = 4
+            Backlog = 0,
+            ToDo = 1,
+            InProgress = 2,
+            Done = 3,
+            Rejected = 4
         }
         public ItemStatus Status { get; set; }
         public virtual long UserId { get; set; }
