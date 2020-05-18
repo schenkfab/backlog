@@ -1,6 +1,0 @@
-// Rename to auth0_config.json and add the values from your auth0 account.
-{
-  "audience": "",
-  "domain": "",
-  "clientId": ""
-}
