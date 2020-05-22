@@ -19,5 +19,13 @@ namespace backlog.Controllers
             await repository.Unsubscribe(id);
             return NoContent();
         }
+
+        [Route("additems")]
+        [HttpPost()]
+        public async Task<IActionResult> AddSubscribedBoardItems()
+        {
+            await repository.AddSubscribedBoardItems();
+            return NoContent();
+        }
     }
 }

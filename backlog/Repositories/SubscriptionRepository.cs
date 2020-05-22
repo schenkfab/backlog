@@ -20,5 +20,11 @@ namespace backlog.Repositories
             await context.Database.ExecuteSqlRawAsync("dbo.usp_unsubscribe @Id = {0}", id);
             return 1;
         }
+
+        public async Task<int> AddSubscribedBoardItems()
+        {
+            await context.Database.ExecuteSqlRawAsync("dbo.usp_AddSubscribedBoardItems");
+            return 1;
+        }
     }
 }
