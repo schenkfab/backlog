@@ -28,13 +28,13 @@ namespace backlog
         {
             string[] origins = new string[2];
             origins[0] = "http://localhost:8080";
-            origins[1] = ;
+            origins[1] = "https://backlogweb.azurewebsites.net";
             services.AddCors(options =>
             {
                 options.AddPolicy("MyCorsPolicy",
                 builder =>
                 {
-                    builder.WithOrigins("https://backlogweb.azurewebsites.net").AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddRepositoryService();
