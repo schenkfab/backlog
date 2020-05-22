@@ -1,8 +1,11 @@
 using AutoMapper;
+using backlog.Authentication;
 using backlog.Contexts;
 using backlog.Middleware;
 using backlog.Repositories;
 using backlog.ServiceCollection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +13,9 @@ using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Security.Claims;
 
 namespace backlog
 {
@@ -39,6 +44,8 @@ namespace backlog
             });
             services.AddRepositoryService();
 
+            services.AddControllers();
+
             services.AddScoped<IUserObject, UserObject>();
 
             services.AddDbContext<DatabaseContext>(opt =>
@@ -48,7 +55,27 @@ namespace backlog
                 opt.UseSqlServer(Configuration["connectionString"]);
             });
 
-            services.AddControllers();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = Configuration["Auth0:Domain"];
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = ClaimTypes.NameIdentifier
+                };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("create:objectives", policy => policy.Requirements.Add(new HasPermissionRequirement("create:objectives", Configuration["Auth0:Domain"])));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, HasPermissionHandler>();
+
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -67,9 +94,11 @@ namespace backlog
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseMiddleware<UserMiddleware>();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

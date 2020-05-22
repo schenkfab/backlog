@@ -3,6 +3,7 @@ using AutoMapper;
 using backlog.Entities;
 using backlog.Models;
 using backlog.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backlog.Controllers
@@ -20,6 +21,7 @@ namespace backlog.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [Route("additems")]
         [HttpPost()]
         public async Task<IActionResult> AddSubscribedBoardItems()

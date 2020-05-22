@@ -15,6 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
   </ItemGroup>
 
 
@@ -24,5 +25,6 @@
     <Folder Include="Models\Article\" />
     <Folder Include="Models\BoardItem\" />
     <Folder Include="ServiceCollection\" />
+    <Folder Include="Authentication\" />
   </ItemGroup>
 </Project>

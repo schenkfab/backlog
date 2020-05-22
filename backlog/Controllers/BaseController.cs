@@ -2,6 +2,7 @@
 using backlog.Entities;
 using backlog.Models;
 using backlog.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections;
@@ -28,6 +29,7 @@ namespace backlog.Controllers
             this.repository = repository;
         }
 
+        [Authorize("create:objectives")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TEntity>>> Get()
         {
