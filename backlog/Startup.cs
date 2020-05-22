@@ -26,15 +26,15 @@ namespace backlog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string[] origins = new string[2];
-            origins[0] = "http://localhost:8080";
-            origins[1] = "https://backlogweb.azurewebsites.net";
+            //string[] origins = new string[2];
+            //origins[0] = "http://localhost:8080";
+            //origins[1] = ;
             services.AddCors(options =>
             {
                 options.AddPolicy("MyCorsPolicy",
                 builder =>
                 {
-                    builder.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins("https://backlogweb.azurewebsites.net").AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddRepositoryService();
