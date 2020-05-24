@@ -26,5 +26,6 @@
     <Folder Include="Models\BoardItem\" />
     <Folder Include="ServiceCollection\" />
     <Folder Include="Authentication\" />
+    <Folder Include="Models\Error\" />
   </ItemGroup>
 </Project>

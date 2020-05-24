@@ -31,7 +31,7 @@ namespace backlog.Controllers
 
         [Authorize("create:objectives")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntity>>> Get()
+        public virtual async Task<ActionResult<IEnumerable<TEntity>>> Get()
         {
             List<TEntity> records = await repository.GetAll();
             return Ok(mapper.Map<List<TEntity>, List<TDtoToRead>>(records));

@@ -10,6 +10,7 @@ namespace backlog.ServiceCollection
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFeedRepository, FeedRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<IErrorRepository, ErrorRepository>();
         }
     }
 }

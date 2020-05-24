@@ -23,6 +23,7 @@ namespace backlog.Contexts
             builder.Entity<BoardItem>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<Subscription>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<User>().HasQueryFilter(f => f.Id == userObject.UserId);
+            builder.Entity<Error>().HasQueryFilter(f => f.UserId == userObject.UserId);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -49,5 +50,6 @@ namespace backlog.Contexts
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Error> Errors { get; set; }
     }
 }
