@@ -36,6 +36,14 @@ namespace backlog.Repositories
             }
         }
 
+        public async Task<User> UpdatePicture(long userId, string picture)
+        {
+            var entity = await context.Users.FirstOrDefaultAsync<User>(o => o.Id == userId);
+            entity.Picture = picture;
+            await context.SaveChangesAsync();
+            return entity;
+        }
+
         public async Task<BoardItem> UpdateBoardItemStatus(long itemId, int statusId)
         {
             var entity = context.BoardItems.FirstOrDefault(o => o.Id == itemId);

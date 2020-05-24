@@ -22,7 +22,14 @@ namespace backlog.Controllers
                 return await base.Post(dto);
             } else
             {
-                return Ok(mapper.Map<UserDto>(entity));
+                if (entity.Picture != dto.Picture)
+                {
+                    var updatedEntity = await repository.UpdatePicture(entity.Id, dto.Picture);
+                    return Ok(mapper.Map<UserDto>(updatedEntity));
+                } else
+                {
+                    return Ok(mapper.Map<UserDto>(entity));
+                }
             }
         }
 

@@ -7,5 +7,6 @@ namespace backlog.Models
         public String Name { get; set; }
         public String Email { get; set; }
         public String Sub { get; set; }
+        public String Picture { get; set; }
     }
 }
