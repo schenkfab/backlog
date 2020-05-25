@@ -9,5 +9,6 @@ namespace backlog.Entities
         public String Url { get; set; }
         public DateTime LastCrawl { get; set; }
         public virtual List<Article> Articles { get; set; }
+        public virtual List<FeedInCollection> FeedInCollections { get; set; }
     }
 }

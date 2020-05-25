@@ -24,6 +24,7 @@ namespace backlog.Profiles
             CreateMap<CollectionForCreationDto, Collection>();
             CreateMap<CollectionForUpdateDto, Collection>();
             CreateMap<CollectionDto, Collection>();
+            CreateMap<CollectionForFeedDto, Collection>();
             CreateMap<Collection, CollectionDto>();
             CreateMap<Follow, FollowDto>();
             CreateMap<FollowDto, Follow>();

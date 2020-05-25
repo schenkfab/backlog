@@ -10,6 +10,7 @@ namespace backlog.Models
         public String Language { get; set; }
         public String Description { get; set; }
         public Boolean IsPrivate { get; set; }
+        public long UserId { get; set; }
         public virtual List<FeedInCollectionDto> FeedsInCollection { get; set; }
     }
 }
