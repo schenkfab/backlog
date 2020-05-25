@@ -18,10 +18,10 @@ namespace backlog.Controllers
 
         [Authorize]
         [Route("addfeedtocollection")]
-        [HttpPost()]
-        public async Task<IActionResult> AddFeedToCollection(long feedId, long collectionId)
+        [HttpPost]
+        public async Task<IActionResult> AddFeedToCollection(FeedInCollectionForCreationDto dto)
         {
-            await repository.AddFeedToCollection(feedId, collectionId);
+            await repository.AddFeedToCollection(dto.FeedId, dto.CollectionId);
             return NoContent();
         }
     }

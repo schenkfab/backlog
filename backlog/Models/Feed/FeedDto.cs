@@ -9,6 +9,6 @@ namespace backlog.Models
         public String Name { get; set; }
         public String Url { get; set; }
         public DateTime LastCrawl { get; set; }
-        public virtual List<FeedInCollectionDto> FeedInCollections { get; set; }
+        public virtual List<FeedInCollectionForFeedDto> FeedInCollections { get; set; }
     }
 }

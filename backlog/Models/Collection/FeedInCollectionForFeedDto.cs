@@ -5,6 +5,6 @@ namespace backlog.Models
 {
     public class FeedInCollectionForFeedDto : IDto
     {
-        public virtual List<CollectionForFeedDto> Collections { get; set; }
+        public virtual long CollectionId { get; set; }
     }
 }
