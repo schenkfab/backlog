@@ -9,6 +9,5 @@
         public long Id { get; set; }
         public ItemStatus Status { get; set; }
         public virtual ArticleDto Article { get; set; }
-        public virtual CollectionDto Collection { get; set; }
     }
 }

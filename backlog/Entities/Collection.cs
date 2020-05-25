@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace backlog.Entities
 {
     public class Collection : BaseEntity

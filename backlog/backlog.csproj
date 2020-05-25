@@ -28,5 +28,6 @@
     <Folder Include="Authentication\" />
     <Folder Include="Models\Error\" />
     <Folder Include="Models\Collection\" />
+    <Folder Include="Models\Follow\" />
   </ItemGroup>
 </Project>

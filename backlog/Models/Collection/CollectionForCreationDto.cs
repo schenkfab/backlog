@@ -8,6 +8,7 @@ namespace backlog.Models
         public String Name { get; set; }
         public String Language { get; set; }
         public String Description { get; set; }
+        public long UserId { get; set; }
         public Boolean IsPrivate { get; set; }
     }
 }

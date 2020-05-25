@@ -21,6 +21,14 @@ namespace backlog.Profiles
             CreateMap<BoardItem, BoardItemDto>();
             CreateMap<Article, ArticleDto>();
             CreateMap<ArticleDto, Article>();
+            CreateMap<CollectionForCreationDto, Collection>();
+            CreateMap<CollectionForUpdateDto, Collection>();
+            CreateMap<CollectionDto, Collection>();
+            CreateMap<Collection, CollectionDto>();
+            CreateMap<Follow, FollowDto>();
+            CreateMap<FollowDto, Follow>();
+            CreateMap<FollowForUpdateDto, Follow>();
+            CreateMap<FollowForCreationDto, Follow>();
         }
     }
 }

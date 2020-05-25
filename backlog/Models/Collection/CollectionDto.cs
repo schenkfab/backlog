@@ -5,10 +5,11 @@ namespace backlog.Models
 {
     public class CollectionDto : IDto
     {
+        public long Id { get; set; }
         public String Name { get; set; }
         public String Language { get; set; }
         public String Description { get; set; }
         public Boolean IsPrivate { get; set; }
-        public List<FeedInCollectionDto> FeedsInCollection { get; set; }
+        public virtual List<FeedInCollectionDto> FeedsInCollection { get; set; }
     }
 }

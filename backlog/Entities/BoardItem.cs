@@ -15,6 +15,6 @@
         public virtual User User { get; set; }
         public virtual Subscription Subscription { get; set; }
         public virtual Article Article { get; set; }
-        public virtual Collection Collection { get; set; }
+        public virtual Follow Follow { get; set; }
     }
 }
