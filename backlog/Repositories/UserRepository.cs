@@ -52,5 +52,22 @@ namespace backlog.Repositories
             await context.SaveChangesAsync();
             return entity;
         }
+
+        public async Task<Collection> CreateInitialCollection(User user, string sub)
+        {
+            var entity = new Collection()
+            {
+                Name = sub, IsPrivate = true, User = user, Description = "Private Collection"
+            };
+
+            var exists = await context.Set<Collection>().FirstOrDefaultAsync(o => o.Name == sub);
+            if (exists == null)
+            {
+                context.Set<Collection>().Add(entity);
+                await context.SaveChangesAsync();
+            }
+
+            return exists ?? entity;
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace backlog.ServiceCollection
             services.AddScoped<IFeedRepository, FeedRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<IErrorRepository, ErrorRepository>();
+            services.AddScoped<ICollectionRepository, CollectionRepository>();
         }
     }
 }

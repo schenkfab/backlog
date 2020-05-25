@@ -19,15 +19,22 @@ namespace backlog.Controllers
             var entity = await repository.GetUserBySub(dto.Sub, true);
             if (entity == null)
             {
+                var entityToCreate = mapper.Map<User>(dto);
+                var createdEntity = await repository.Add(entityToCreate);
+
+                await repository.CreateInitialCollection(createdEntity, dto.Sub);
+
                 return await base.Post(dto);
             } else
             {
                 if (entity.Picture != dto.Picture)
                 {
                     var updatedEntity = await repository.UpdatePicture(entity.Id, dto.Picture);
+                    await repository.CreateInitialCollection(updatedEntity, dto.Sub);
                     return Ok(mapper.Map<UserDto>(updatedEntity));
                 } else
                 {
+                    await repository.CreateInitialCollection(entity, dto.Sub);
                     return Ok(mapper.Map<UserDto>(entity));
                 }
             }
