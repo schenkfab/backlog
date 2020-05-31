@@ -29,7 +29,7 @@ namespace backlog.Controllers
             this.repository = repository;
         }
 
-        [Authorize("create:objectives")]
+        //[Authorize("create:objectives")]
         [HttpGet]
         public virtual async Task<ActionResult<IEnumerable<TEntity>>> Get()
         {
