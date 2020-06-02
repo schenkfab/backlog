@@ -24,5 +24,19 @@ namespace backlog.Controllers
             await repository.AddFeedToCollection(dto.FeedId, dto.CollectionId);
             return NoContent();
         }
+
+        [Authorize]
+        [HttpDelete("removefeedfromcollection/{collectionId}/{feedId}")]
+        public async Task<IActionResult> RemoveFeedFromCollection(long collectionId, long feedId)
+        {
+            var ret = await repository.RemoveFeedFromCollection(collectionId, feedId);
+            if (ret == -1)
+            {
+                return Unauthorized();
+            } else
+            {
+                return NoContent();
+            }
+        }
     }
 }
