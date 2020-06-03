@@ -22,6 +22,7 @@ namespace backlog.Controllers
         public async Task<IActionResult> AddFeedToCollection(FeedInCollectionForCreationDto dto)
         {
             await repository.AddFeedToCollection(dto.FeedId, dto.CollectionId);
+            await repository.SyncBoardItems();
             return NoContent();
         }
 
@@ -30,6 +31,7 @@ namespace backlog.Controllers
         public async Task<IActionResult> RemoveFeedFromCollection(long collectionId, long feedId)
         {
             var ret = await repository.RemoveFeedFromCollection(collectionId, feedId);
+            await repository.SyncBoardItems();
             if (ret == -1)
             {
                 return Unauthorized();

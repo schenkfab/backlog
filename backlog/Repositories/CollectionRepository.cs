@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using backlog.Contexts;
 using backlog.Entities;
 using backlog.Middleware;
+using Microsoft.EntityFrameworkCore;
 
 namespace backlog.Repositories
 {
@@ -22,6 +23,12 @@ namespace backlog.Repositories
             await context.Set<FeedInCollection>().AddAsync(new FeedInCollection() { CollectionId = collectionId, FeedId = feedId });
             await context.SaveChangesAsync();
 
+            return 1;
+        }
+
+        public async Task<int> SyncBoardItems()
+        {
+            await context.Database.ExecuteSqlRawAsync("dbo.usp_SyncBoardItems");
             return 1;
         }
 
