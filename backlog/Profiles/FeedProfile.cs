@@ -12,6 +12,8 @@ namespace backlog.Profiles
             CreateMap<FeedForCreationDto, Feed>();
             CreateMap<FeedDto, Feed>();
             CreateMap<FeedForUpdateDto, Feed>();
+            CreateMap<FeedForArticleDto, Feed>();
+            CreateMap<Feed, FeedForArticleDto> ();
         }
     }
 }

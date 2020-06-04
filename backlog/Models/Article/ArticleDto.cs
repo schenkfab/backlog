@@ -8,5 +8,6 @@ namespace backlog.Models
         public String Picture { get; set; }
         public String Link { get; set; }
         public DateTime Date { get; set; }
+        public virtual FeedForArticleDto Feed { get; set; }
     }
 }
