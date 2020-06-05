@@ -14,12 +14,32 @@ namespace backlog.Entities
         public virtual List<FeedInCollection> FeedInCollections { get; set; }
         [NotMapped]
         public int NrOfArticles {
-            get { return Articles.Count; }
+            get
+            {
+                if (Articles == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Articles.Count;
+                }
+            }
             private set {}
         }
         [NotMapped]
         public int NrOfArticlesLast7Days {
-            get { return Articles.Where(o => o.Date > DateTime.Now.AddDays(-7)).Count(); }
+            get
+            {
+                if (Articles == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Articles.Where(o => o.Date > DateTime.Now.AddDays(-7)).Count();
+                }
+            }
             private set { }
         }
     }
