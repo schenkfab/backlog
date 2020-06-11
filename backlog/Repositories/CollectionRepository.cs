@@ -26,6 +26,11 @@ namespace backlog.Repositories
             return 1;
         }
 
+        public async Task<List<CollectionStatistic>> GetStatistics()
+        {
+            return await context.CollectionStatistics.ToListAsync();
+        }
+
         public async Task<int> SyncBoardItems()
         {
             await context.Database.ExecuteSqlRawAsync("dbo.usp_SyncBoardItems");

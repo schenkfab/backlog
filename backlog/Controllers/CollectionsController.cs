@@ -27,6 +27,14 @@ namespace backlog.Controllers
         }
 
         [Authorize]
+        [Route("statistics")]
+        [HttpGet]
+        public async Task<IEnumerable<CollectionStatistic>> GetStatistics()
+        {
+            return await repository.GetStatistics();
+        }
+
+        [Authorize]
         [HttpDelete("removefeedfromcollection/{collectionId}/{feedId}")]
         public async Task<IActionResult> RemoveFeedFromCollection(long collectionId, long feedId)
         {

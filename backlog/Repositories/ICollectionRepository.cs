@@ -10,5 +10,6 @@ namespace backlog.Repositories
         Task<int> AddFeedToCollection(long feedId, long collectionId);
         Task<int> RemoveFeedFromCollection(long collectionId, long feedId);
         Task<int> SyncBoardItems();
+        Task<List<CollectionStatistic>> GetStatistics();
     }
 }

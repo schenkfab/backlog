@@ -26,6 +26,11 @@ namespace backlog.Contexts
             builder.Entity<Error>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<Follow>().HasQueryFilter(f => f.UserId == userObject.UserId);
             builder.Entity<Collection>().HasQueryFilter(f => f.UserId == userObject.UserId || f.IsPrivate == false);
+            builder.Entity<CollectionStatistic>(e =>
+            {
+                e.HasNoKey();
+                e.ToTable("vCollectionStatistics");
+            });
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -46,7 +51,7 @@ namespace backlog.Contexts
             }
             return base.SaveChangesAsync(cancellationToken);
         }
-
+        public virtual DbSet<CollectionStatistic> CollectionStatistics { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<BoardItem> BoardItems { get; set; }
         public DbSet<Feed> Feeds { get; set; }
