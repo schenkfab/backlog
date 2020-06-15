@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace OPMLHelper
@@ -8,11 +9,11 @@ namespace OPMLHelper
     {
         public List<Outline> outlines;
 
-        public OPML(string location)
+        public OPML(string xml)
         {
             outlines = new List<Outline>();
             XmlDocument doc = new XmlDocument();
-            doc.Load(location);
+            doc.LoadXml(xml);
             foreach (XmlNode child in doc.ChildNodes)
             {
                 if (child.Name.Equals("opml", StringComparison.CurrentCultureIgnoreCase))
@@ -23,25 +24,36 @@ namespace OPMLHelper
                         {
                             foreach (XmlNode outline in headbody.ChildNodes)
                             {
-                                var ol = new Outline();
-                                ol.Title = outline.Attributes["title"].Value;
-                                ol.Feeds = new List<RSS>();
-                                foreach (XmlNode rss in outline.ChildNodes)
+                                var ol = new Outline
                                 {
-                                    RSS feed = new RSS();
-                                    feed.Title = rss.Attributes["title"].Value;
-                                    feed.xmlUrl = rss.Attributes["xmlUrl"].Value;
+                                    Title = outline.Attributes["title"].Value,
+                                    Feeds = new List<RSS>()
+                                };
+                                List<XmlNode> nodes = new List<XmlNode>();
+                                foreach(XmlNode n in outline.ChildNodes)
+                                {
+                                    nodes.Add(n);
+                                }
+
+                                Parallel.ForEach(nodes, n =>
+                                {
+                                    RSS feed = new RSS
+                                    {
+                                        Title = n.Attributes["title"].Value,
+                                        xmlUrl = n.Attributes["xmlUrl"].Value
+                                    };
                                     FeedHelper feedHelper = new FeedHelper(feed.xmlUrl);
                                     if (feedHelper.isLoaded)
                                     {
                                         feed.Found = true;
-                                    } else
+                                    }
+                                    else
                                     {
                                         feed.Found = false;
                                         feed.Error = feedHelper.Error;
                                     }
                                     ol.Feeds.Add(feed);
-                                }
+                                });
                                 outlines.Add(ol);
                             }
                         }

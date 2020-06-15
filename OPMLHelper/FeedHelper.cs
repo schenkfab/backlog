@@ -20,13 +20,11 @@ namespace OPMLHelper
                 }
                 else
                 {
-                    Console.WriteLine("Url: " + url + " loaded successfuly.");
                     isLoaded = true;
                 }
                 reader.Close();
             } catch (Exception ex)
             {
-                Console.WriteLine("Url: " + url + " error: " + ex.Message);
                 Error = ex.Message;
                 isLoaded = false;
             }

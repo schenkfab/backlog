@@ -30,4 +30,9 @@
     <Folder Include="Models\Collection\" />
     <Folder Include="Models\Follow\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OPMLHelper\OPMLHelper.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
