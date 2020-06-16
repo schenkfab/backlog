@@ -34,14 +34,14 @@ namespace backlog
             string[] origins = new string[2];
             origins[0] = "http://localhost:8080";
             origins[1] = "https://backlogweb.azurewebsites.net";
-            services.AddCors(options =>
-            {
-                options.AddPolicy("MyCorsPolicy",
-                builder =>
-                {
-                    builder.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
-                });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("MyCorsPolicy",
+            //    builder =>
+            //    {
+            //        builder.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
+            //    });
+            //});
             services.AddRepositoryService();
 
             services.AddControllers();
@@ -88,7 +88,7 @@ namespace backlog
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("MyCorsPolicy");
+            //app.UseCors("MyCorsPolicy");
 
             app.UseHttpsRedirection();
 
