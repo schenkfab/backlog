@@ -31,6 +31,11 @@ namespace backlog.Contexts
                 e.HasNoKey();
                 e.ToTable("vCollectionStatistics");
             });
+            builder.Entity<FeedStatistic>(e =>
+            {
+                e.HasNoKey();
+                e.ToTable("vFeedStatistics");
+            });
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -52,6 +57,7 @@ namespace backlog.Contexts
             return base.SaveChangesAsync(cancellationToken);
         }
         public virtual DbSet<CollectionStatistic> CollectionStatistics { get; set; }
+        public virtual DbSet<FeedStatistic> FeedStatistics { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<BoardItem> BoardItems { get; set; }
         public DbSet<Feed> Feeds { get; set; }
