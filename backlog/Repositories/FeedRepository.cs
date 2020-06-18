@@ -11,5 +11,11 @@ namespace backlog.Repositories
     public class FeedRepository : EfCoreRepository<Feed, DatabaseContext>, IFeedRepository
     {
         public FeedRepository(DatabaseContext context) : base(context) { }
+
+
+        public async Task<List<FeedStatistic>> GetStatistics()
+        {
+            return await context.FeedStatistics.ToListAsync();
+        }
     }
 }
