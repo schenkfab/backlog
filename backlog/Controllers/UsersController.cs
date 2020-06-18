@@ -3,6 +3,7 @@ using backlog.Entities;
 using backlog.Models;
 using backlog.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace backlog.Controllers
@@ -20,6 +21,8 @@ namespace backlog.Controllers
             if (entity == null)
             {
                 var entityToCreate = mapper.Map<User>(dto);
+                entityToCreate.LastLogin = DateTime.UtcNow;
+                entityToCreate.PreviousLastLogin = DateTime.UtcNow;
                 var createdEntity = await repository.Add(entityToCreate);
 
                 await repository.CreateInitialCollection(createdEntity, dto.Sub);
@@ -29,13 +32,15 @@ namespace backlog.Controllers
             {
                 if (entity.Picture != dto.Picture)
                 {
-                    var updatedEntity = await repository.UpdatePicture(entity.Id, dto.Picture);
+                    await repository.UpdatePicture(entity.Id, dto.Picture);
+                    var updatedEntity = await repository.UpdateLastLogin(entity.Id);
                     await repository.CreateInitialCollection(updatedEntity, dto.Sub);
                     return Ok(mapper.Map<UserDto>(updatedEntity));
                 } else
                 {
                     await repository.CreateInitialCollection(entity, dto.Sub);
-                    return Ok(mapper.Map<UserDto>(entity));
+                    var updatedEntity = await repository.UpdateLastLogin(entity.Id);
+                    return Ok(mapper.Map<UserDto>(updatedEntity));
                 }
             }
         }

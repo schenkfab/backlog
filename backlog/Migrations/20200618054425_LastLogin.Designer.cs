@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backlog.Contexts;
 
 namespace backlog.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200618054425_LastLogin")]
+    partial class LastLogin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,9 +334,6 @@ namespace backlog.Migrations
 
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PreviousLastLogin")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Sub")
                         .HasColumnType("nvarchar(max)");

@@ -10,5 +10,7 @@ namespace backlog.Models
         public String Email { get; set; }
         public String Sub { get; set; }
         public String Picture { get; set; }
+        public DateTime LastLogin { get; set; }
+        public DateTime PreviousLastLogin { get; set; }
     }
 }

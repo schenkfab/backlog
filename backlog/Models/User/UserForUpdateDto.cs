@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace backlog.Models
 {
@@ -14,5 +11,7 @@ namespace backlog.Models
         public string Sub { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public DateTime LastLogin { get; set; }
+        public DateTime PreviousLastLogin { get; set; }
     }
 }

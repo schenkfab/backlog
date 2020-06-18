@@ -44,6 +44,15 @@ namespace backlog.Repositories
             return entity;
         }
 
+        public async Task<User> UpdateLastLogin(long userId)
+        {
+            var entity = await context.Users.FirstOrDefaultAsync<User>(o => o.Id == userId);
+            entity.PreviousLastLogin = entity.LastLogin;
+            entity.LastLogin = DateTime.UtcNow;
+            await context.SaveChangesAsync();
+            return entity;
+        }
+
         public async Task<BoardItem> UpdateBoardItemStatus(long itemId, int statusId)
         {
             var entity = context.BoardItems.FirstOrDefault(o => o.Id == itemId);

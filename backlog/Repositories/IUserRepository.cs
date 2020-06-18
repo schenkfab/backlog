@@ -10,5 +10,6 @@ namespace backlog.Repositories
         Task<bool> UserSubExists(string sub, bool isTracking = false);
         Task<User> UpdatePicture(long userId, string picture);
         Task<Collection> CreateInitialCollection(User user, string sub);
+        Task<User> UpdateLastLogin(long userId);
     }
 }

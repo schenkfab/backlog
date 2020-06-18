@@ -9,6 +9,8 @@ namespace backlog.Entities
         public String Email { get; set; }
         public String Sub { get; set; }
         public String Picture { get; set; }
+        public DateTime LastLogin { get; set; }
+        public DateTime PreviousLastLogin { get; set; }
         public virtual List<Subscription> Subscriptions { get; set; }
         public virtual List<BoardItem> BoardItems { get; set; }
     }

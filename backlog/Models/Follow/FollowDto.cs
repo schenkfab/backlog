@@ -8,5 +8,6 @@ namespace backlog.Models
         public long Id { get; set; }
         public virtual CollectionDto Collection { get; set; }
         public virtual List<BoardItemDto> BoardItems { get; set; }
+        public int NewItems { get; set; }
     }
 }
