@@ -28,6 +28,8 @@ namespace backlog.Profiles
             CreateMap<Collection, CollectionDto>();
             CreateMap<Follow, FollowDto>();
             CreateMap<FollowDto, Follow>();
+            CreateMap<FollowForSingleDto, Follow>();
+            CreateMap<Follow, FollowForSingleDto>();
             CreateMap<FollowForUpdateDto, Follow>();
             CreateMap<FollowForCreationDto, Follow>();
             CreateMap<FeedInCollectionDto, FeedInCollection>();

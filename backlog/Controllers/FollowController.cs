@@ -21,6 +21,13 @@ namespace backlog.Controllers
             return x;
         }
 
+        [HttpGet("{id}")]
+        public virtual async Task<ActionResult<FollowForSingleDto>> Get(long id)
+        {
+            Follow records = await repository.Get(id);
+            return Ok(mapper.Map<Follow, FollowForSingleDto>(records));
+        }
+
         [HttpDelete("{id}")]
         public override async Task<IActionResult> Delete(long id)
         {
