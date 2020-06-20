@@ -35,6 +35,20 @@ namespace backlog.Controllers
         }
 
         [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> Put(CollectionForUpdateDto dto)
+        {
+            var current = await repository.AsNoTracking(dto.Id);
+            var entity = mapper.Map<Collection>(dto);
+
+            entity.UserId = current.UserId;
+            entity.CreatedDate = current.CreatedDate;
+
+            await repository.Update(entity);
+            return NoContent();
+        }
+
+        [Authorize]
         [HttpDelete("removefeedfromcollection/{collectionId}/{feedId}")]
         public async Task<IActionResult> RemoveFeedFromCollection(long collectionId, long feedId)
         {

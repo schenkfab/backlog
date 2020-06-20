@@ -12,5 +12,6 @@ namespace backlog.Models
         public Boolean IsPrivate { get; set; }
         public long UserId { get; set; }
         public virtual List<FeedInCollectionDto> FeedInCollections { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

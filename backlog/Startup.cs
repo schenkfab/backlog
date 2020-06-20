@@ -50,7 +50,6 @@ namespace backlog
 
             services.AddDbContext<DatabaseContext>(opt =>
             {
-                //TODO: Include anstatt Lazy Loading
                 opt.UseLazyLoadingProxies();
                 opt.UseSqlServer(Configuration["connectionString"]);
             });
